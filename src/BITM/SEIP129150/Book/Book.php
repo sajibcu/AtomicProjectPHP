@@ -8,11 +8,21 @@ class Book{
     public  $created_by="";
     public  $modified_by="";
     public  $deleted_at="";
+    public  $conn;
 
 
     public  function __construct()
     {
+        $this->conn=mysqli_connect("localhost","root","","atomicprojectb21");
 
+    }
+
+    public  function  prepare($data)
+    {
+        if(array_key_exists('title',$data))
+        {
+            $this->title=$data['title'];
+        }
     }
     public  function index(){
         return "i am listing data";
@@ -22,7 +32,16 @@ class Book{
     }
     public  function store()
     {
-        return "i am storing data";
+        $sql="INSERT INTO `atomicprojectb21`.`book` (`title`) VALUES ('".$this->title."');";
+        $result=mysqli_query($this->conn,$sql);
+        if($result)
+        {
+            echo "insert succesfully";
+        }
+        else{
+            echo "eorror";
+        }
+
     }
     public  function edit(){
         return "i am editing data";
