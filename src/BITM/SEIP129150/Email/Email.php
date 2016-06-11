@@ -1,5 +1,6 @@
 <?php
 namespace App\BITM\SEIP129150\Email;
+
 class Email{
     public  $id="";
     public  $email="";
