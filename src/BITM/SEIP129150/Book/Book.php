@@ -25,7 +25,15 @@ class Book{
         }
     }
     public  function index(){
-        return "i am listing data";
+        $allBook =array();
+        $query="SELECT * FROM `book`";
+        $result=mysqli_query($this->conn,$query);
+        while($row=mysqli_fetch_assoc($result))
+        {
+            $allBook[]=$row;
+        }
+        return $allBook;
+
     }
     public  function create(){
         return "i am create from";
