@@ -44,10 +44,16 @@ class Book{
         $result=mysqli_query($this->conn,$sql);
         if($result)
         {
-            echo "insert succesfully";
+           Message::message("<div class=\"alert alert-success\">
+  <strong>Success!</strong> Data has been stored successfully.
+</div>");
+            Utility::redirect('index.php');
         }
         else{
-            echo "eorror";
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Unsuccess!</strong> Data has not been stored successfully.
+</div>");
+            Utility::redirect('index.php');
         }
 
     }
@@ -61,7 +67,10 @@ class Book{
         return "i delete data";
     }
     public  function  veiw(){
-        return  "i am veiwing data ";
+        $query="SELECT * FROM `book` WHERE `id`=".$this->id;
+        $result= mysqli_query($this->conn,$query);
+        $row= mysqli_fetch_assoc($result);
+        return $row;
     }
 
 
