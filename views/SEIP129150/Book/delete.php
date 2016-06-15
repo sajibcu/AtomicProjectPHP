@@ -1,5 +1,6 @@
 <?php
-include_once('vendor/autoload.php');
+include_once('../../../vendor/autoload.php');
 use App\BITM\SEIP129150\Book\Book;
 $book=new Book();
-echo $book->delete();
+$book->prepare($_GET);
+$book->delete();

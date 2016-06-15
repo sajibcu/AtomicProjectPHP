@@ -4,7 +4,8 @@ use App\BITM\SEIP129150\Book\Book;
 use App\BITM\SEIP129150\Book\Message;
 use App\BITM\SEIP129150\Book\Utility;
 $book=new Book();
-$albook=$book->index();
+$trashBook=$book->trashed();
+//var_dump($trashBook);
 ?>
 
 <!DOCTYPE html>
@@ -19,23 +20,19 @@ $albook=$book->index();
 <!--<body background="book.jpg">-->
 <body>
 <div class="container">
-    <h1>Book List</h1>
-    <a href="create.php" class="btn btn-info" role="button">Add new book</a>
-    <a href="trashVeiw.php" class="btn btn-primary" role="button">Trash List</a>
-    <select>
-        <option value="" style="display: none"> select</option>
-        <option value="ten">10</option>
-        <option value="fifty">50</option>
-        <option value="hundred">100</option>
-    </select>
-    <br>
-    <div id="message">
-        <?php echo Message::message()?>
-    </div>
+    <h2>Trashed Book List</h2>
+
+    <a href="index.php" class="btn btn-info" role="button">View all Book title</a>
+    <form action="recoverMultiple.php" method="post" id="multiple">
+        <button type="submit" class="btn btn-info">Recover Selected</button>
+        <button type="button" class="btn btn-primary" id="delete">Delete all Selected</button>
+        <br><br>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
+                <td>SELECT</td>
                 <td>
                     SL#
                 </td>
@@ -53,29 +50,32 @@ $albook=$book->index();
             <tbody>
             <?php
             $sl=1;
-            foreach ($albook as $book) {
+            foreach ($trashBook as $book) {
 
             ?>
             <tr>
+                <td><input type="checkbox" name=mark[] value="<?php echo $book['id'] ?>"></td>
                 <td><?php echo  $sl?></td>
                 <td> <?php echo $book['id']?></td>
                 <td> <?php echo $book['title']?></td>
                 <td>
-            <a href="veiw.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">View</a>
-            <a href="edit.php?id=<?php echo $book['id']?>" class="btn btn-primary" role="button">Edit</a>
-            <a href="delete.php?id=<?php echo $book['id']?>" class="btn btn-danger" role="button">Delete</a>
-            <a href="trash.php?id=<?php echo $book['id']?>" class="btn btn-success" role="button">Trash</a>
-                </td>
+                    <a href="recover.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">Recover</a>
+                    <a href="delete.php?id=<?php echo $book['id']?>" class="btn btn-primary" role="button">Delete</a>
+                    </td>
             </tr>
 
             </tbody>
             <?php $sl++; } ?>
         </table>
+        </form>
     </div>
 </div>
-<script>
-    $('#message').show().delay(3000).fadeOut();
 
+<script>
+    $('#delete').on('click',function(){
+        document.forms[0].action="deleteMultiple.php";
+        $('#multiple').submit();
+    });
 </script>
 
 </body>
