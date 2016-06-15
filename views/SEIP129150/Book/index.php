@@ -15,9 +15,9 @@ $albook=$book->index();
     <link rel="stylesheet" type="text/css" href="../../../resources/bootstrap/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <!--  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
-</head>
+</head >
 <!--<body background="book.jpg">-->
-<body>
+<body style="background: coral">
 <div class="container">
     <h1>Book List</h1>
     <a href="create.php" class="btn btn-info" role="button">Add new book</a>
@@ -60,7 +60,7 @@ $albook=$book->index();
                 <td> <?php echo $book['id']?></td>
                 <td> <?php echo $book['title']?></td>
                 <td>
-            <a href="view.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">View</a>
+            <a href="veiw.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">View</a>
             <a href="edit.php?id=<?php echo $book['id']?>" class="btn btn-primary" role="button">Edit</a>
             <a href="delete.php?id=<?php echo $book['id']?>" class="btn btn-danger" role="button">Delete</a>
             <a href="trash.php?id=<?php echo $book['id']?>" class="btn btn-success" role="button">Trash</a>

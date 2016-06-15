@@ -23,6 +23,11 @@ class Book{
         {
             $this->title=$data['title'];
         }
+
+        if(array_key_exists('id',$data))
+        {
+            $this->id=$data['id'];
+        }
     }
     public  function index(){
         $allBook =array();
