@@ -1,5 +1,8 @@
 <?php
 namespace App\BITM\SEIP129150\Email;
+include_once('../../../vendor/autoload.php');
+use  App\BITM\SEIP129150\Book\Message;
+use  App\BITM\SEIP129150\Book\Utility;
 
 class Email{
     public  $id="";
@@ -28,7 +31,15 @@ class Email{
 
 
     public  function index(){
-        return "i am listing data";
+        $query="SELECT * FROM `email` WHERE `trash` IS NULL";
+        $result=mysqli_query($this->conn,$query);
+        $alemail=array();
+        while ($row=mysqli_fetch_assoc($result))
+        {
+            $alemail[]=$row;
+        }
+        return $alemail;
+
     }
     public  function create(){
         return "i am create from";
@@ -37,12 +48,16 @@ class Email{
     {
         $sql="INSERT INTO `atomicprojectb21`.`email` (`email`) VALUES ('".$this->email."');";
         $result=mysqli_query($this->conn,$sql);
-        if($result)
-        {
-            echo "insert succesfully";
-        }
-        else{
-            echo "eorror";
+        if ($result) {
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Success!</strong> Data has been stored successfully.
+</div>");
+            Utility::redirect('index.php');
+        } else {
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Unsuccess!</strong> Data has not been stored successfully.
+</div>");
+            Utility::redirect('index.php');
         }
     }
     public  function edit(){
