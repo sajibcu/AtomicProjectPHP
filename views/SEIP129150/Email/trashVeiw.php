@@ -1,10 +1,11 @@
+
 <?php
 include_once('../../../vendor/autoload.php');
-use App\BITM\SEIP129150\Book\Book;
+use App\BITM\SEIP129150\Email\Email;
 use App\BITM\SEIP129150\Book\Message;
 use App\BITM\SEIP129150\Book\Utility;
-$book=new Book();
-$trashBook=$book->trashed();
+$email=new Email();
+$trashemail=$email->trashed();
 //var_dump($trashBook);
 ?>
 
@@ -22,7 +23,7 @@ $trashBook=$book->trashed();
 <div class="container">
     <h2>Trashed Book List</h2>
 
-    <a href="index.php" class="btn btn-info" role="button">View all Book title</a>
+    <a href="index.php" class="btn btn-info" role="button">View all Email</a>
     <form action="recoverMultiple.php" method="post" id="multiple">
         <button type="submit" class="btn btn-info">Recover Selected</button>
         <button type="button" class="btn btn-primary" id="delete">Delete all Selected</button>
@@ -40,7 +41,7 @@ $trashBook=$book->trashed();
                         ID
                     </td>
                     <td>
-                        Title
+                        Email
                     </td>
                     <td>
                         Action
@@ -50,17 +51,17 @@ $trashBook=$book->trashed();
                 <tbody>
                 <?php
                 $sl=1;
-                foreach ($trashBook as $book) {
+                foreach ($trashemail as $email) {
 
                 ?>
                 <tr>
-                    <td><input type="checkbox" name=mark[] value="<?php echo $book['id'] ?>"></td>
+                    <td><input type="checkbox" name=mark[] value="<?php echo $email['id'] ?>"></td>
                     <td><?php echo  $sl?></td>
-                    <td> <?php echo $book['id']?></td>
-                    <td> <?php echo $book['title']?></td>
+                    <td> <?php echo $email['id']?></td>
+                    <td> <?php echo $email['email']?></td>
                     <td>
-                        <a href="recover.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">Recover</a>
-                        <a href="delete.php?id=<?php echo $book['id']?>" class="btn btn-primary" role="button">Delete</a>
+                        <a href="recover.php?id=<?php echo $email['id']?>" class="btn btn-info" role="button">Recover</a>
+                        <a href="delete.php?id=<?php echo $email['id']?>" class="btn btn-primary" role="button">Delete</a>
                     </td>
                 </tr>
 

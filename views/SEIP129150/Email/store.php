@@ -1,6 +1,8 @@
 <?php
 include_once('../../../vendor/autoload.php');
 use App\BITM\SEIP129150\Email\Email;
+use App\BITM\SEIP129150\Book\Message;
+use App\BITM\SEIP129150\Book\Utility;
 if(isset($_POST['email'])&&(!empty($_POST['email']))) {
     $email = new Email();
     $email->prepare($_POST);
@@ -8,5 +10,10 @@ if(isset($_POST['email'])&&(!empty($_POST['email']))) {
 }
 else
 {
-    echo "insert some data";
+
+    Message::message("<div class=\"alert alert-success\">
+  <strong>Unsuccess!</strong> Data has not been stored successfully.
+</div>");
+    Utility::redirect('index.php');
 }
+
