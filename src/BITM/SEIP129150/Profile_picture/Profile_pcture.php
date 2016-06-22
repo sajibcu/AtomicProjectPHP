@@ -2,7 +2,8 @@
 namespace App\BITM\SEIP129150\Profile_pcture;
 class Profile_pcture{
     public  $id="";
-    public  $title="";
+    public  $name="";
+    public  $imageName="";
     public  $created="";
     public  $modified="";
     public  $created_by="";
@@ -12,7 +13,20 @@ class Profile_pcture{
 
     public  function __construct()
     {
+        $this->conn = mysqli_connect("localhost", "root", "", "atomicprojectb21");
+    }
 
+    public  function  prepare($data="")
+    {
+        if (array_key_exists("name", $data)) {
+            $this->name = $data['name'];
+        }
+        if (array_key_exists("imageName", $data)) {
+            $this->imageName = $data['image'];
+        }
+        if (array_key_exists("id", $data)) {
+            $this->id = $data['id'];
+        }
     }
     public  function index(){
         return "i am listing data";
@@ -22,7 +36,19 @@ class Profile_pcture{
     }
     public  function store()
     {
-        return "i am storing data";
+        $sql ="INSERT INTO `atomicprojectb21`.`profilepicture` (`name`, `imageName`) VALUES ('".$this->name."', '".$this->imageName."')'";
+        $result = mysqli_query($this->conn, $sql);
+        if ($result) {
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Success!</strong> Data has been stored successfully.
+</div>");
+            Utility::redirect('index.php');
+        } else {
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Unsuccess!</strong> Data has not been stored successfully.
+</div>");
+            Utility::redirect('index.php');
+        }
     }
     public  function edit(){
         return "i am editing data";
