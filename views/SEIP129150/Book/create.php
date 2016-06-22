@@ -21,13 +21,19 @@
 <body>
 <form class="form-horizontal" role="form" method="post" action="store.php">
     <div class="form-group">
+        <br>
+        <br>
         <label class="control-label col-sm-2" for="email">Book Title:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control"  placeholder="Enter book title" name="title">
+            </br>
+            </br>
+            <input type="email" class="form-control"  placeholder="Enter book title" name="title">
         </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            </br>
+            </br>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </form>
