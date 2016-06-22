@@ -1,5 +1,8 @@
 <?php
 namespace App\BITM\SEIP129150\Hobby;
+include_once('../../../vendor/autoload.php');
+use  App\BITM\SEIP129150\Book\Message;
+use  App\BITM\SEIP129150\Book\Utility;
 class Hobby{
     public  $id="";
     public  $name="";
@@ -48,11 +51,15 @@ class Hobby{
         //echo $query;
         $result = mysqli_query($this->conn, $query);
         if ($result) {
-            echo "insert succssful";
-        }
-        else
-        {
-            echo "unsuccessful";
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Success!</strong> Data has been stored successfully.
+</div>");
+            Utility::redirect('index.php');
+        } else {
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Unsuccess!</strong> Data has not been stored successfully.
+</div>");
+            Utility::redirect('index.php');
         }
     }
     public  function edit(){
@@ -62,10 +69,27 @@ class Hobby{
         return "i am updating data";
     }
     public  function delete(){
-        return "i delete data";
+        $query = "DELETE FROM `atomicprojectb21`.`hobby` WHERE `hobby`.`id` = " . $this->id;
+        $result = mysqli_query($this->conn, $query);
+        if ($result) {
+            Message::message("<div class=\"alert alert-info\">
+  <strong>Deleted!</strong> Data has been Deleted successfully.
+</div>");
+            header('Location:index.php');
+
+        } else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Data has not been Deleted  successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
     }
     public  function  veiw(){
-        return  "i am veiwing data ";
+        $query = "SELECT * FROM `hobby` WHERE `id`=" . $this->id;
+        $result = mysqli_query($this->conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
     }
 
 
