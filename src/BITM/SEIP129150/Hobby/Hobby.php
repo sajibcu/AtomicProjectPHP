@@ -49,6 +49,8 @@ class Hobby{
     {
         $query="INSERT INTO `atomicprojectb21`.`hobby`(`name`, `hobby`) VALUES ('".$this->name."','".$this->hobby. "')";
         //echo $query;
+        //echo  $query;
+       // die();
         $result = mysqli_query($this->conn, $query);
         if ($result) {
             Message::message("<div class=\"alert alert-success\">
@@ -66,7 +68,18 @@ class Hobby{
         return "i am editing data";
     }
     public  function update(){
-        return "i am updating data";
+
+        $query="UPDATE `atomicprojectb21`.`hobby` SET `name` = '".$this->name."', `hobby` = '".$this->hobby."' WHERE `hobby`.`id` = ".$this->id;
+        $result=mysqli_query($this->conn,$query);
+        if($result)
+        {
+            Message::message("<div class=\"alert alert-info\"> <strong>Updated!</strong> Data has been updated successfully.</div>");
+            Utility::redirect("index.php");
+        }
+        else {
+            Message::message("<div class=\"alert alert-info\"> <strong>Updated!</strong> Data has not been updated successfully.</div>");
+            Utility::redirect("index.php");
+        }
     }
     public  function delete(){
         $query = "DELETE FROM `atomicprojectb21`.`hobby` WHERE `hobby`.`id` = " . $this->id;
@@ -90,6 +103,33 @@ class Hobby{
         $result = mysqli_query($this->conn, $query);
         $row = mysqli_fetch_assoc($result);
         return $row;
+    }
+    
+    public  function  trash()
+    {
+        $this->deleted_at=time();
+        $query="UPDATE `atomicprojectb21`.`hobby` SET `trash` = '".$this->deleted_at."' WHERE `hobby`.`id` = ".$this->id;
+        $result=mysqli_query($this->conn,$query);
+        if($result)
+        {
+            Message::message("<div class=\"alert alert-success\"> <strong>Trashed!</strong> Data has been trashed successfully.</div>");
+            Utility::redirect("index.php");
+        }
+        else {
+            Message::message("<div class=\"alert alert-warning\"> <strong>trashed!</strong> Data has not been trashed successfully.</div>");
+            Utility::redirect("index.php");
+        }
+    }
+    public  function trashedveiw()
+    {
+        $query = "SELECT * FROM `hobby` WHERE `trash` IS NOT NULL";
+        $allhobby=array();
+        $result=mysqli_query($this->conn,$query);
+        while ($row=mysqli_fetch_assoc($result))
+        {
+            $allhobby[]=$row;
+        }
+        return $allhobby;
     }
 
 

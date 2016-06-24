@@ -29,6 +29,7 @@ $singlehobbyList=explode(',',$singlehobby['hobby']);
     <form role="form" action="update.php" method="post" >
         <label>Name:</label>
         <input type="text" name="name" value="<?php echo $singlehobby['name']?>">
+        <input type="text" name="id" value="<?php echo  $singlehobby['id']?>" hidden>
         <div class="checkbox">
             <label><input type="checkbox" name="hobby[]" value="coding" <?php if(in_array('coding',$singlehobbyList)) echo "checked"?>>Coding</label>
         </div>
