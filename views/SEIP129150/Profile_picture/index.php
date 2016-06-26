@@ -1,11 +1,10 @@
 <?php
+session_start();
 include_once('../../../vendor/autoload.php');
-use App\BITM\SEIP129150\Profile_pcture\Profile_pcture;
+use App\BITM\SEIP129150\Profile_picture\ImageLoader;
+$pp=new ImageLoader();
+$ppicture=$pp->index();
 
-use App\BITM\SEIP129150\Book\Message;
-use App\BITM\SEIP129150\Book\Utility;
-$book=new Book();
-$albook=$book->index();
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +30,9 @@ $albook=$book->index();
     </select>
     <br>
     <div id="message">
-        <?php echo Message::message()?>
+        <?php if((array_key_exists('message',$_SESSION)&& !empty($_SESSION['message']))){
+            echo Message::message();
+        }?>
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -44,28 +45,29 @@ $albook=$book->index();
                     ID
                 </td>
                 <td>
-                    Title
+                    Name
                 </td>
                 <td>
-                    Action
+                   Picture
                 </td>
             </tr>
             </thead>
             <tbody>
             <?php
             $sl=1;
-            foreach ($albook as $book) {
+            foreach ($ppicture as $pic) {
 
             ?>
             <tr>
                 <td><?php echo  $sl?></td>
-                <td> <?php echo $book['id']?></td>
-                <td> <?php echo $book['title']?></td>
+                <td> <?php echo $pic['id']?></td>
+                <td> <?php echo $pic['name']?></td>
+                <td> <img src="../../../resources/images/<?php echo $pic["imageName"]?>.jpg"></td>
                 <td>
-                    <a href="veiw.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">View</a>
-                    <a href="edit.php?id=<?php echo $book['id']?>" class="btn btn-primary" role="button">Edit</a>
-                    <a href="delete.php?id=<?php echo $book['id']?>" class="btn btn-danger" role="button">Delete</a>
-                    <a href="trash.php?id=<?php echo $book['id']?>" class="btn btn-success" role="button">Trash</a>
+                    <a href="veiw.php?id=<?php echo $pic['id']?>" class="btn btn-info" role="button">View</a>
+                    <a href="edit.php?id=<?php echo $pic['id']?>" class="btn btn-primary" role="button">Edit</a>
+                    <a href="delete.php?id=<?php echo $pic['id']?>" class="btn btn-danger" role="button">Delete</a>
+                    <a href="trash.php?id=<?php echo $pic['id']?>" class="btn btn-success" role="button">Trash</a>
                 </td>
             </tr>
 
@@ -75,7 +77,7 @@ $albook=$book->index();
     </div>
 </div>
 <script>
-    $('#message').show().delay(3000).fadeOut();
+    $('#message').show().delay(30000).fadeOut();
 
 </script>
 
