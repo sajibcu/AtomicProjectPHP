@@ -1,5 +1,4 @@
 <?php
-namespace App\BITM\SEIP129150\Profile_pcture;
 class Profile_pcture{
     public  $id="";
     public  $name="";
@@ -28,8 +27,17 @@ class Profile_pcture{
             $this->id = $data['id'];
         }
     }
-    public  function index(){
-        return "i am listing data";
+    public function index(){
+        return "i am index";
+        $_allInfo= array();
+        $query="SELECT * FROM `profilepicture`";
+        $result= mysqli_query($this->conn,$query);
+        //You can also use mysqli_fetch_object e.g: $row= mysqli_fetch_object($result)
+        while($row= mysqli_fetch_assoc($result)){
+            $_allInfo[]=$row;
+        }
+
+        return $_allInfo;
     }
     public  function create(){
         return "i am create from";

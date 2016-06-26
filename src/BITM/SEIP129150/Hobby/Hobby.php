@@ -132,5 +132,43 @@ class Hobby{
         return $allhobby;
     }
 
+    public  function mutipleRecover($ids){
+        $id=implode(",",$ids);
+
+        $query="UPDATE `atomicprojectb21`.`hobby` SET `trash` = NULL  WHERE `hobby`.`id` IN (".$id.")";
+//        echo  $query;
+//        die();
+        $result=mysqli_query($this->conn,$query);
+        if($result)
+        {
+            Message::message("<div class=\"alert alert-info\"> <strong>Restore!</strong> Data has been Restoreed successfully.</div>");
+            Utility::redirect("index.php");
+        }
+        else {
+            Message::message("<div class=\"alert alert-info\"> <strong>Restore!</strong> Data has not been Restoreed successfully.</div>");
+            Utility::redirect("index.php");
+        }
+    }
+    public  function  mutipleDelete($ids)
+    {
+        $id=implode(",",$ids);
+        $query = "DELETE FROM `atomicprojectb21`.`hobby` WHERE `hobby`.`id`  IN (".$id.")";
+        $result = mysqli_query($this->conn, $query);
+        if ($result) {
+            Message::message("<div class=\"alert alert-info\">
+  <strong>Deleted!</strong> Data has been Deleted successfully.
+</div>");
+            header('Location:index.php');
+
+        } else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Data has not been Deleted  successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
+    }
+
+
 
 }

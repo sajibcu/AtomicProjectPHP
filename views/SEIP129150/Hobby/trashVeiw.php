@@ -56,7 +56,7 @@ $alhobby=$hobby->trashedveiw();
 
             ?>
             <tr>
-                <td><input type="checkbox" value="mark[] <?php echo  $hobby['id']?> " ></td>
+                <td><input type="checkbox" name="mark[]" value="<?php echo  $hobby['id']?>" ></td>
                 <td><?php echo  $sl?></td>
                 <td> <?php echo $hobby['id']?></td>
                 <td> <?php echo $hobby['name']?></td>

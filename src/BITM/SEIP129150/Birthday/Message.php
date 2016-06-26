@@ -1,5 +1,5 @@
 <?php
-namespace APP\BITM\SEIP129150\Book;
+namespace APP\BITM\SEIP129150\Birthday;
 if(!isset($_SESSION['message']))
 {
     session_start();
@@ -8,8 +8,8 @@ class Message{
     public  static  function message($message=NULL){
         if(is_null($message)) {
             $_message = self::getMessage();
-            return $_message;
 
+            return $_message;
         }
         else
         {
@@ -24,7 +24,6 @@ class Message{
     {
         $_message=$_SESSION['message'];
         $_SESSION['message']="";
-        if($_message==NULL) return "";
         return $_message;
     }
 }
