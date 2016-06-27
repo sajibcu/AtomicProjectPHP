@@ -27,7 +27,7 @@
         <div class="col-sm-10">
             </br>
             </br>
-            <input type="email" class="form-control"  placeholder="Enter book title" name="title">
+            <input type="text" class="form-control"  placeholder="Enter book title" name="title">
         </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

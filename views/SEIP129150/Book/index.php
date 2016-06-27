@@ -1,10 +1,39 @@
 <?php
+session_start();
 include_once('../../../vendor/autoload.php');
 use App\BITM\SEIP129150\Book\Book;
 use App\BITM\SEIP129150\Book\Message;
 use App\BITM\SEIP129150\Book\Utility;
 $book=new Book();
-$albook=$book->index();
+
+$totalIteam=$book->count();
+
+if(array_key_exists("iteamPerPage",$_SESSION))
+{
+    if(array_key_exists("iteamPerPage",$_GET))
+    {
+        $_SESSION['iteamPerPage']=$_GET['iteamPerPage'];
+    }
+}
+else
+$_SESSION['iteamPerPage']=5;
+$iteamPerPage=$_SESSION['iteamPerPage'];
+$noOfPage=ceil($totalIteam/$iteamPerPage);
+$pagination="";
+if(array_key_exists('pageNumber',$_GET))
+{
+    $pageNo=$_GET['pageNumber'];
+}
+else $pageNo=1;
+for($i=1;$i<=$noOfPage;$i++)
+{
+    $active=($pageNo==$i)? "active":"";
+    $pagination.="<li class='$active'><a href='index.php?pageNumber=$i'>$i</a></li>";
+}
+$pageStartFrom=$iteamPerPage*($pageNo-1);
+$albook=$book->paginator($pageStartFrom,$iteamPerPage);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -22,16 +51,25 @@ $albook=$book->index();
     <h1>Book List</h1>
     <a href="create.php" class="btn btn-info" role="button">Add new book</a>
     <a href="trashVeiw.php" class="btn btn-primary" role="button">Trash List</a>
-    <select>
-        <option value="" style="display: none"> select</option>
-        <option value="ten">10</option>
-        <option value="fifty">50</option>
-        <option value="hundred">100</option>
-    </select>
-    <br>
+
     <div id="message">
-        <?php echo Message::message()?>
+
+        <?php
+        if(array_key_exists("message",$_SESSION))
+        echo Message::message();
+        ?>
     </div>
+    <form action="index.php">
+        <select name="iteamPerPage">
+            <option value="" style="display: none"> select</option>
+            <option <?php if($_SESSION['iteamPerPage']==5) echo "selected"?>>5</option>
+            <option <?php if($_SESSION['iteamPerPage']==10) echo "selected"?>>10</option>
+            <option <?php if($_SESSION['iteamPerPage']==15) echo "selected"?>>15</option>
+            <option <?php if($_SESSION['iteamPerPage']==20) echo "selected"?>>20</option>
+        </select>
+        <input type="submit" value="GO" class="btn btn-primary">
+    </form>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -57,13 +95,13 @@ $albook=$book->index();
 
             ?>
             <tr>
-                <td><?php echo  $sl?></td>
+                <td><?php echo  $sl+$pageStartFrom?></td>
                 <td> <?php echo $book['id']?></td>
                 <td> <?php echo $book['title']?></td>
                 <td>
             <a href="veiw.php?id=<?php echo $book['id']?>" class="btn btn-info" role="button">View</a>
             <a href="edit.php?id=<?php echo $book['id']?>" class="btn btn-primary" role="button">Edit</a>
-            <a href="delete.php?id=<?php echo $book['id']?>" class="btn btn-danger" role="button">Delete</a>
+            <a  href="delete.php?id=<?php echo $book['id']?>" class="btn btn-danger" role="button">Delete</a>
             <a href="trash.php?id=<?php echo $book['id']?>" class="btn btn-success" role="button">Trash</a>
                 </td>
             </tr>
@@ -71,6 +109,30 @@ $albook=$book->index();
             </tbody>
             <?php $sl++; } ?>
         </table>
+
+        <ul class="pagination">
+            <li><a href="<?php
+                {
+                    if($pageNo>1) {
+                        $pageNo--;
+                        echo "index.php?pageNumber=".$pageNo - 1;
+                    }
+                }?>
+                " <?php if($pageNo<=1) echo "hidden"?>>Prev</a></li>
+            <?php echo $pagination?>
+
+            <li><a href="<?php
+                {
+                    if($pageNo<$noOfPage) {
+
+                        echo "index.php?pageNumber=".$pageNo + 1;
+                        $pageNo++;
+                    }
+                }?>
+                " <?php if($pageNo>=$noOfPage) echo "hidden"?>>Nex</a></li>
+
+        </ul>
+
     </div>
 </div>
 <script>
