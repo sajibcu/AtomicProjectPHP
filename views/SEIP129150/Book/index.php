@@ -51,7 +51,6 @@ $albook=$book->paginator($pageStartFrom,$iteamPerPage);
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li class="active"><a href="../../../index.php">Home</a></li>
-            <li><a href="/index.php">Book</a></li>
             <li><a href="../Birthday/index.php">Birthday</a></li>
             <li><a href="../City/index.php">City</a></li>
             <li><a href="../Education_level/index.php">Education Level</a></li>
