@@ -24,7 +24,7 @@ class Birthday
     public function  prepare($data)
     {
         if (array_key_exists('name', $data)) {
-            $this->name = $data['name'];
+            $this->name = filter_var($data['name'], FILTER_SANITIZE_STRING);
         }
 
         if (array_key_exists('id', $data)) {
@@ -238,6 +238,27 @@ class Birthday
             Utility::redirect('index.php');
 
         }
+
+    }
+
+
+    public  function  count()
+    {
+        $query="SELECT COUNT(*) AS totalItem FROM `birthday` WHERE `trash` IS NULL";
+        $result=mysqli_query($this->conn,$query);
+        $row= mysqli_fetch_assoc($result);
+        return $row['totalItem'];
+    }
+    public function paginator($pageStartFrom=0,$Limit=5){
+        $query="SELECT * FROM `birthday` WHERE `trash` IS NULL LIMIT ".$pageStartFrom.",".$Limit;
+        $_allBook= array();
+        $result= mysqli_query($this->conn,$query);
+        //You can also use mysqli_fetch_object e.g: $row= mysqli_fetch_object($result)
+        while($row= mysqli_fetch_assoc($result)){
+            $_allBook[]=$row;
+        }
+
+        return $_allBook;
 
     }
 

@@ -1,10 +1,10 @@
 <?php
 include_once('../../../vendor/autoload.php');
-use App\BITM\SEIP129150\City\City;
-$city=new City();
-$city->prepare($_GET);
+use App\BITM\SEIP129150\Education_level\Education_level;
+$education=new Education_level();
+$education->prepare($_GET);
 
-$cityname=$city->veiw();
+$educationLevel=$education->veiw();
 
 ?>
 
@@ -15,7 +15,7 @@ $cityname=$city->veiw();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Book title</title>
+    <title>education</title>
 
     <!-- Bootstrap -->
     <link href="../../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,34 +29,37 @@ $cityname=$city->veiw();
     <![endif]-->
 </head>
 <body>
-<form class="form-horizontal" role="form" method="post" action="update.php">
+<form  method="post" action="update.php">
     <div class="form-group">
         <br>
         <br>
-        <label style="color: #eea236">City</label>
+        <label style="color: #eea236">Education</label>
         <div class="col-sm-2">
             </br>
             </br>
-            <form action="update.php" method="post">
-                <input type="text" class="form-control" name="id" hidden value="<?php echo $cityname['id']?>">
-                <label>Name:</label>
-                <input type="text" class="form-control"  value="<?php echo $cityname['name']?>" name="name" required>
-                <select  name="city" required>
-                    <?php
-                    $cityNameString="Barguna|Barisal|Bhola|Jhalokati|Patuakhali|Pirojpur|Bandarban|Brahmanbaria|Chandpur|Chittagong|Comilla|Cox's Bazar|Feni|Khagrachari|Lakshmipur|Noakhali|Rangamati|Dhaka|Faridpur|Gazipur|Gopalganj|Jamalpur|Kishoreganj|Madaripur|Manikganj|Munshiganj|Mymensingh|Narayanganj|Narsingdi|Netrokona|Rajbari|Shariatpur|Sherpur|Tangail|Bagerhat|Chuadanga|Jessore|Jhenaidah|Khulna|Kushtia|Magura|Meherpur|Narail|Satkhira|Bogra|Dinajpur|Gaibandha|Jaipurhat|Kurigram|Lalmonirhat|Naogaon|Natore|Nawabganj|Nilphamari|Pabna|Panchagarh|Rajshahi|Rangpur|Sirajganj|Thakurgaon|Habiganj|Maulvi bazar|Sunamganj|Sylhet";
-                    $cityNameArray=explode("|",$cityNameString);
-                    ?>
-                    <option ><?php echo $cityname['city']?></option>
-                    <?php
-                    $i=0;
-                    for($i=0;$i<64;$i++)
-                    {
-                        echo "<option>".$cityNameArray[$i]."</option>";
-                    }
-                    ?>
-                </select>
-                <input type="submit" value="Submit" class="btn btn-primary">
-            </form>
+            <label>Name:</label>
+            <input type="text" name="id" hidden value="<?php echo  $educationLevel['id']?>">
+            <input type="text" name="name" value="<?php echo  $educationLevel['name']?>">
+            <label>Select Your Education Level:</label>
+            <div class="radio">
+                <label><input  type="radio" <?php if($educationLevel['level']=='JSC') echo "checked"?> name="level" value="JSC">JSC</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" <?php if($educationLevel['level']=='SSC') echo "checked"?>  name="level" value="SSC">SSC</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" <?php if($educationLevel['level']=='HSC') echo "checked"?>  name="level" value="HSC">HSC</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" <?php if($educationLevel['level']=='Honours') echo "checked"?> name="level" value="Honours">Honour's</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" <?php if($educationLevel['level']=='Masters') echo "checked"?> name="level" value="Masters">Master's</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" <?php if($educationLevel['level']=='PHP') echo "checked"?> name="level" value="PHD">PHD</label>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary">
 
 
         </div>

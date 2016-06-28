@@ -23,7 +23,7 @@
     <div class="form-group">
         <br>
         <br>
-        <label style="color: #eea236">City</label>
+        <label style="color: #eea236">Education</label>
         <div class="col-sm-2">
             </br>
             </br>

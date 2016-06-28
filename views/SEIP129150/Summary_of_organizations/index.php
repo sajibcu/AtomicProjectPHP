@@ -47,6 +47,22 @@ $alorg=$org->paginator($pageStartFrom,$iteamPerPage);
 </head >
 <!--<body background="book.jpg">-->
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="../../../index.php">Home</a></li>
+            <li><a href="/index.php">Book</a></li>
+            <li><a href="../Birthday/index.php">Birthday</a></li>
+            <li><a href="../City/index.php">City</a></li>
+            <li><a href="../Education_level/index.php">Education Level</a></li>
+            <li><a href="../Email/index.php">Email</a></li>
+            <li><a href="../Hobby/index.php">Hobby</a></li>
+            <li><a href="../Profile_picture/index.php">Profile Picture</a></li>
+            <li><a href="../Summary_of_organizations/index.php">Organization</a></li>
+
+        </ul>
+    </div>
+</nav>
 <div class="container">
     <h1>Organization  List</h1>
     <a href="create.php" class="btn btn-info" role="button">Add new Organization</a>

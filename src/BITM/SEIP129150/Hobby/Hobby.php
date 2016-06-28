@@ -22,7 +22,8 @@ class Hobby{
     public  function  prepare($data=Array())
     {
         if (array_key_exists("name", $data)) {
-            $this->name= $data['name'];
+            $this->name = filter_var($data['name'], FILTER_SANITIZE_STRING);
+            //$this->name= $data['name'];
         }
 
         if (array_key_exists('id', $data)) {
@@ -133,36 +134,85 @@ class Hobby{
     }
 
     public  function mutipleRecover($ids){
-        $id=implode(",",$ids);
+        if ((is_array($ids)) && count($ids) > 0) {
+            $id = implode(",", $ids);
 
-        $query="UPDATE `atomicprojectb21`.`hobby` SET `trash` = NULL  WHERE `hobby`.`id` IN (".$id.")";
+            $query = "UPDATE `atomicprojectb21`.`hobby` SET `trash` = NULL  WHERE `hobby`.`id` IN (" . $id . ")";
 //        echo  $query;
 //        die();
-        $result=mysqli_query($this->conn,$query);
-        if($result)
-        {
-            Message::message("<div class=\"alert alert-info\"> <strong>Restore!</strong> Data has been Restoreed successfully.</div>");
-            Utility::redirect("index.php");
-        }
-        else {
-            Message::message("<div class=\"alert alert-info\"> <strong>Restore!</strong> Data has not been Restoreed successfully.</div>");
-            Utility::redirect("index.php");
+            $result = mysqli_query($this->conn, $query);
+            if ($result) {
+                Message::message("<div class=\"alert alert-info\"> <strong>Restore!</strong> Data has been Restoreed successfully.</div>");
+                Utility::redirect("index.php");
+            } else {
+                Message::message("<div class=\"alert alert-info\"> <strong>Restore!</strong> Data has not been Restoreed successfully.</div>");
+                Utility::redirect("index.php");
+            }
         }
     }
     public  function  mutipleDelete($ids)
     {
-        $id=implode(",",$ids);
-        $query = "DELETE FROM `atomicprojectb21`.`hobby` WHERE `hobby`.`id`  IN (".$id.")";
+        if ((is_array($ids)) && count($ids) > 0) {
+            $id = implode(",", $ids);
+            $query = "DELETE FROM `atomicprojectb21`.`hobby` WHERE `hobby`.`id`  IN (" . $id . ")";
+            $result = mysqli_query($this->conn, $query);
+            if ($result) {
+                Message::message("<div class=\"alert alert-info\">
+  <strong>Deleted!</strong> Data has been Deleted successfully.
+</div>");
+                header('Location:index.php');
+
+            } else {
+                Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Data has not been Deleted  successfully.
+    </div>");
+                Utility::redirect('index.php');
+
+            }
+        }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Data has not been Deleted  successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
+    }
+
+
+    public  function  count()
+    {
+        $query="SELECT COUNT(*) AS totalItem FROM `hobby` WHERE `trash` IS NULL";
+        $result=mysqli_query($this->conn,$query);
+        $row= mysqli_fetch_assoc($result);
+        return $row['totalItem'];
+    }
+    public function paginator($pageStartFrom=0,$Limit=5){
+        $query="SELECT * FROM `hobby` WHERE `trash` IS NULL LIMIT ".$pageStartFrom.",".$Limit;
+        $_allhobby= array();
+        $result= mysqli_query($this->conn,$query);
+        //You can also use mysqli_fetch_object e.g: $row= mysqli_fetch_object($result)
+        while($row= mysqli_fetch_assoc($result)){
+            $_allhobby[]=$row;
+        }
+
+        return $_allhobby;
+
+    }
+
+    public function  recover()
+    {
+        $query = "UPDATE `atomicprojectb21`.`hobby` SET `trash` = NULL  WHERE `hobby`.`id` = " . $this->id;
         $result = mysqli_query($this->conn, $query);
         if ($result) {
-            Message::message("<div class=\"alert alert-info\">
-  <strong>Deleted!</strong> Data has been Deleted successfully.
+            Message::message("<div class=\"alert alert-success\">
+  <strong>Recovered!</strong> Data has been recovered successfully.
 </div>");
             header('Location:index.php');
 
         } else {
             Message::message("<div class=\"alert alert-danger\">
-  <strong>Error!</strong> Data has not been Deleted  successfully.
+  <strong>Error!</strong> Data has not been recovered successfully.
     </div>");
             Utility::redirect('index.php');
 

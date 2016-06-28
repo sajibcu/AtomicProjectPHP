@@ -26,7 +26,8 @@ class City{
     {
         if(array_key_exists('name',$data))
         {
-            $this->name=$data['name'];
+            $this->name = filter_var($data['name'], FILTER_SANITIZE_STRING);
+           // $this->name=$data['name'];
         }
         if (array_key_exists('id', $data)) {
             $this->id = $data['id'];
@@ -167,7 +168,7 @@ class City{
 
             } else {
                 Message::message("<div class=\"alert alert-danger\">
-  <strong>Error!</strong> Selected Data has not been recovered successfully.
+  <strong>Error!</strong> Selected Data has not been deleted successfully.
     </div>");
                 Utility::redirect('index.php');
 
@@ -175,6 +176,14 @@ class City{
 
 
         }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been deleted successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
+
     }
 
     public function multipleDelect($idS)
@@ -198,6 +207,13 @@ class City{
 
             }
 
+
+        }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been recovered successfully.
+    </div>");
+            Utility::redirect('index.php');
 
         }
 

@@ -26,7 +26,8 @@ class Education_level{
     {
         if(array_key_exists('name',$data))
         {
-            $this->name=$data['name'];
+            $this->name = filter_var($data['name'], FILTER_SANITIZE_STRING);
+           // $this->name=$data['name'];
         }
         if (array_key_exists('id', $data)) {
             $this->id = $data['id'];
@@ -176,6 +177,13 @@ class Education_level{
 
 
         }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been recovered successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
     }
 
     public function multipleDelect($idS)
@@ -187,18 +195,25 @@ class Education_level{
             $result = mysqli_query($this->conn, $query);
             if ($result) {
                 Message::message("<div class=\"alert alert-success\">
-  <strong>Recovered!</strong> Selected Data has been recovered successfully.
+  <strong>Deleted!</strong> Selected Data has been Deleted successfully.
 </div>");
                 header('Location:index.php');
 
             } else {
                 Message::message("<div class=\"alert alert-danger\">
-  <strong>Error!</strong> Selected Data has not been recovered successfully.
+  <strong>Error!</strong> Selected Data has not been Deleted successfully.
     </div>");
                 Utility::redirect('index.php');
 
             }
 
+
+        }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been Deleted successfully.
+    </div>");
+            Utility::redirect('index.php');
 
         }
 

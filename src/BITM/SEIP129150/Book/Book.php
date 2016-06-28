@@ -22,7 +22,8 @@ class Book
     public function  prepare($data)
     {
         if (array_key_exists('title', $data)) {
-            $this->title = $data['title'];
+            //$this->title = $data['title'];
+            $this->title = filter_var($data['title'], FILTER_SANITIZE_STRING);
         }
 
         if (array_key_exists('id', $data)) {
@@ -210,18 +211,25 @@ class Book
             $result = mysqli_query($this->conn, $query);
             if ($result) {
                 Message::message("<div class=\"alert alert-success\">
-  <strong>Recovered!</strong> Selected Data has been recovered successfully.
+  <strong>Deleted!</strong> Selected Data has been Deleted successfully.
 </div>");
                 header('Location:index.php');
 
             } else {
                 Message::message("<div class=\"alert alert-danger\">
-  <strong>Error!</strong> Selected Data has not been recovered successfully.
+  <strong>Error!</strong> Selected Data has not been deleted successfully.
     </div>");
                 Utility::redirect('index.php');
 
             }
 
+
+        }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been deleted successfully.
+    </div>");
+            Utility::redirect('index.php');
 
         }
 

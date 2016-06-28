@@ -26,7 +26,8 @@ class Email{
     {
         if(array_key_exists('email',$data))
         {
-            $this->email=$data['email'];
+            $this->email = filter_var($data['email'], FILTER_SANITIZE_STRING);
+           // $this->email=$data['email'];
         }
         if (array_key_exists('id', $data)) {
             $this->id = $data['id'];
@@ -185,6 +186,13 @@ class Email{
 
 
         }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been recovered successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
     }
 
     public function multipleDelect($idS)
@@ -196,13 +204,13 @@ class Email{
             $result = mysqli_query($this->conn, $query);
             if ($result) {
                 Message::message("<div class=\"alert alert-success\">
-  <strong>Recovered!</strong> Selected Data has been recovered successfully.
+  <strong>Deleted!</strong> Selected Data has been recovered successfully.
 </div>");
                 header('Location:index.php');
 
             } else {
                 Message::message("<div class=\"alert alert-danger\">
-  <strong>Error!</strong> Selected Data has not been recovered successfully.
+  <strong>Error!</strong> Selected Data has not been Deleted successfully.
     </div>");
                 Utility::redirect('index.php');
 
@@ -210,6 +218,33 @@ class Email{
 
 
         }
+        else {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been Deleted successfully.
+    </div>");
+            Utility::redirect('index.php');
+
+        }
+
+    }
+
+    public  function  count()
+    {
+        $query="SELECT COUNT(*) AS totalItem FROM `email` WHERE `trash` IS NULL";
+        $result=mysqli_query($this->conn,$query);
+        $row= mysqli_fetch_assoc($result);
+        return $row['totalItem'];
+    }
+    public function paginator($pageStartFrom=0,$Limit=5){
+        $query="SELECT * FROM `email` WHERE `trash` IS NULL LIMIT ".$pageStartFrom.",".$Limit;
+        $_allemail= array();
+        $result= mysqli_query($this->conn,$query);
+        //You can also use mysqli_fetch_object e.g: $row= mysqli_fetch_object($result)
+        while($row= mysqli_fetch_assoc($result)){
+            $_allemail[]=$row;
+        }
+
+        return $_allemail;
 
     }
 
