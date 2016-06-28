@@ -1,5 +1,6 @@
 <?php
 include_once('../../../vendor/autoload.php');
-use App\BITM\SEIP129150\Education_level\Education_level;
-$book=new Education_level();
-echo $book->update();
+use App\BITM\SEIP129150\City\City;
+$city=new City();
+$city->prepare($_POST);
+$city->update();

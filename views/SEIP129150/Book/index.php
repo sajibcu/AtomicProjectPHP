@@ -111,25 +111,24 @@ $albook=$book->paginator($pageStartFrom,$iteamPerPage);
         </table>
 
         <ul class="pagination">
-            <li><a href="<?php
-                {
-                    if($pageNo>1) {
-                        $pageNo--;
-                        echo "index.php?pageNumber=".$pageNo - 1;
-                    }
-                }?>
-                " <?php if($pageNo<=1) echo "hidden"?>>Prev</a></li>
-            <?php echo $pagination?>
+            <?php
+            if($pageNo>1)
+            {
+                $pageNo--;
+               echo "<li class='active'><a href='index.php?pageNumber=$pageNo'>Prev</a></li>";
+            }
 
-            <li><a href="<?php
-                {
-                    if($pageNo<$noOfPage) {
 
-                        echo "index.php?pageNumber=".$pageNo + 1;
-                        $pageNo++;
-                    }
-                }?>
-                " <?php if($pageNo>=$noOfPage) echo "hidden"?>>Nex</a></li>
+                ?>
+            <?php echo $pagination;
+
+            if(isset($_GET['pageNumber'])&&$_GET['pageNumber']<$noOfPage) {
+                $next_item=$_GET['pageNumber']+1;
+                echo "<li><a href='index.php?pageNumber=$next_item'>Next</a></li>";
+               // Utility::dd($next_item);
+            }
+
+            ?>
 
         </ul>
 

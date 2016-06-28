@@ -2,5 +2,4 @@
 include_once('../../../vendor/autoload.php');
 use App\BITM\SEIP129150\City\City;
 $city=new City();
-$city->prepare($_GET);
- $city->delete();
+$city->multipleDelect($_POST['mark']);

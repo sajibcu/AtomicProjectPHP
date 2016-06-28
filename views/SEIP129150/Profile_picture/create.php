@@ -11,18 +11,20 @@
 <body>
 
 <div class="container">
-    <h2>Create Profile</h2>
+    <h2 align="center">Create Profile</h2>
     <form role="form" action="store.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Name:</label>
-            <input type="text" class="form-control"name="name" >
+            <input type="text" class="form-control"name="name" required >
         </div>
         <div class="form-group">
             <label for="pwd">Upload your profile picture:</label>
-            <input type="file" name="image" class="form-control">
+            <input type="file" name="image" required class="form-control">
         </div>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="btn btn-success">
+        <a href="index.php" class="btn btn-primary" role="button">Cancle</a>
     </form>
+
 </div>
 
 </body>

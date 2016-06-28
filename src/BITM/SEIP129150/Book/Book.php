@@ -192,6 +192,13 @@ class Book
 
 
         }
+        else
+        {
+            Message::message("<div class=\"alert alert-danger\">
+  <strong>Error!</strong> Selected Data has not been recovered successfully.
+    </div>");
+            Utility::redirect('index.php');
+        }
     }
 
     public function multipleDelect($idS)
