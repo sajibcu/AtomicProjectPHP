@@ -61,7 +61,14 @@ $trashbirthday=$birthday->trashed();
                     <td><?php echo  $sl?></td>
                     <td> <?php echo $birthday['id']?></td>
                     <td> <?php echo $birthday['name']?></td>
-                    <td> <?php echo $birthday['birthday']?></td>
+                    <td>
+                        <?php
+                        $birthdayTime=strtotime($birthday['birthday']);
+                        $birthdayFormat=date("d-m-y",$birthdayTime);
+                        echo $birthdayFormat;
+
+
+                        ?></td>
                     <td>
                         <a href="recover.php?id=<?php echo $birthday['id']?>" class="btn btn-info" role="button">Recover</a>
                         <a href="delete.php?id=<?php echo $birthday['id']?>" class="btn btn-primary" role="button">Delete</a>

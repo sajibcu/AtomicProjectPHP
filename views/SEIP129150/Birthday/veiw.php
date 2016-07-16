@@ -38,7 +38,14 @@ $birthday=$birthday->veiw();
 
         <tr>
             <td>birthday :</td>
-            <td><?php echo $birthday['birthday']?></td>
+            <td>
+                <?php
+                $birthdayTime=strtotime($birthday['birthday']);
+                $birthdayFormat=date("d-m-y",$birthdayTime);
+                echo $birthdayFormat;
+
+
+                ?></td>
         </tr>
         <tr>
             <td>

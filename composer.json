@@ -6,7 +6,8 @@
     }
   },
   "require":{
-    "mpdf/mpdf":"v6.1.1",
-    "phpoffice/phpexcel":"1.8.1"
+    "mpdf/mpdf":"v6.0.0",
+    "phpoffice/phpexcel":"1.8.1",
+    "phpmailer/phpmailer":"v5.2.16"
   }
 }

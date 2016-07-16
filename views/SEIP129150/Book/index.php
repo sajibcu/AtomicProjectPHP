@@ -68,6 +68,8 @@ $albook=$book->paginator($pageStartFrom,$iteamPerPage);
     <a href="trashVeiw.php" class="btn btn-primary" role="button">Trash List</a>
     <a href="pdf.php" class="btn btn-info" role="button">download as Pdf</a>
     <a href="excel.php" class="btn btn-info" role="button">download as Excel</a>
+    <a href="mail.php" class="btn btn-info" role="button">Send to maill</a>
+
 
     <div id="message">
 

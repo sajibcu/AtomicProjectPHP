@@ -117,7 +117,14 @@ $albirthday=$birthday->paginator($pageStartFrom,$iteamPerPage);
                 <td><?php echo  $sl+$pageStartFrom?></td>
                 <td> <?php echo $birthday['id']?></td>
                 <td> <?php echo $birthday['name']?></td>
-                <td> <?php echo $birthday['birthday']?></td>
+                <td>
+                    <?php
+                    $birthdayTime=strtotime($birthday['birthday']);
+                    $birthdayFormat=date("d-m-y",$birthdayTime);
+                    echo $birthdayFormat;
+
+
+                    ?></td>
                 <td>
             <a href="veiw.php?id=<?php echo $birthday['id']?>" class="btn btn-info" role="button">View</a>
             <a href="edit.php?id=<?php echo $birthday['id']?>" class="btn btn-primary" role="button">Edit</a>

@@ -18,10 +18,49 @@ foreach ($allbook as $book) {
 
 
 }
+$html=<<<EOD
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head >
+<body>
+    <h1>Book List</h1>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>
+                    SL#
+                </td>
+                <td>
+                    ID
+                </td>
+                <td>
+                    Title
+                </td>
+            </tr>
+            <tr>
+            $trs;
+            </tr>
+            
+        </table>
+
+
+    </div>
+
+</body>
+</html>
+
+EOD;
+
 
 
 
 
 $mpdf = new Mpdf();
 $mpdf->WriteHTML($html);
-$mpdf->Output();
+$mpdf->Output("booklist.pdf",'D');
+?>
